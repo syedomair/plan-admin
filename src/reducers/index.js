@@ -4,6 +4,7 @@ import login from './login';
 import register from './register';
 import user from './user';
 import plan from './plan';
+import dashboard from './dashboard';
 
 export default combineReducers({
   defaultStates,
@@ -11,4 +12,5 @@ export default combineReducers({
   register,
   user,
   plan,
+  dashboard,
 });

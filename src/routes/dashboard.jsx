@@ -4,7 +4,7 @@ import People from '@material-ui/icons/People';
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import Unarchive from '@material-ui/icons/Unarchive';
 // core components/views
-import DashboardPage from 'views/Dashboard/Dashboard.jsx';
+import DashboardPage from 'views/Dashboard.jsx';
 
 
 import UsersList from 'views/UsersList.jsx';
