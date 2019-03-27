@@ -72,7 +72,7 @@ class App extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText={"Demo"}
+          logoText={"ReactJs Demo"}
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}

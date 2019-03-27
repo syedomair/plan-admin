@@ -57,11 +57,11 @@ class LoginComp extends Component {
     );
   }
 
+  onRegisterClick() {
+      window.location = "register";
+  }
   render() {
     const { classes } = this.props;
-    // if (loggedIn && localStorage.getItem('access_token')) {
-    //  return <Redirect to="/dashboard" />;
-    // }
 
     return (
           <GridContainer justify="center">
@@ -123,15 +123,12 @@ class LoginComp extends Component {
                       color="primary"
                       round
                       block
-                      onClick={this.onLoginClick.bind(this)}
+                      onClick={this.onRegisterClick.bind(this)}
                     >
                       Register
                     </Button>
                   </CardFooter>
                   <CardFooter >
-                    <Link to="/pages/forgot-password" style={{ textAlign: 'center' }}>
-                      Forgot Password?
-                    </Link>
                   </CardFooter>
                 </Card>
               </form>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 // @material-ui/core components
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -41,10 +41,6 @@ class RegisterComp extends Component {
     }, 2500);
   }
 
-    onNetworkChange(e) {
-        this.props.setNetwork(e.target.value);
-    }
-
     onEmailChange(e) {
         this.props.setEmail(e.target.value);
     }
@@ -70,14 +66,14 @@ class RegisterComp extends Component {
     }
 
     onRegisterClick() {
-        this.props.onRegister({ first_name: this.props.firstName, last_name: this.props.lastName,  network_name: this.props.network, email: this.props.email, password: this.props.password });
+        this.props.onRegister({ first_name: this.props.firstName, last_name: this.props.lastName,  email: this.props.email, password: this.props.password });
     }
 
   render() {
     const { classes } = this.props;
-    // if (loggedIn && localStorage.getItem('access_token')) {
-    //  return <Redirect to="/dashboard" />;
-    // }
+    if (localStorage.getItem('token')) {
+     return <Redirect to="/dashboard" />;
+    }
 
     return (
           <GridContainer justify="center">
@@ -90,22 +86,6 @@ class RegisterComp extends Component {
    
                   <CardBody>
                     {/* <div style={{ color: "red" }}>{this.props.message}</div> */}
-                    
-                    <CustomInput
-                      labelText="Network"
-                      id="network"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        onChange: this.onNetworkChange.bind(this),
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <CardMembership className={classes.inputAdornmentIcon} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
                     
                     <CustomInput
                       labelText="First Name"
