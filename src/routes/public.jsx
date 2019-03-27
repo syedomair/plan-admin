@@ -19,7 +19,7 @@ const publicRoutes = [
   {
     redirect: true,
     path: '/public',
-    to: '/public/login',
+    pathTo: '/public/login',
     navbarName: 'Redirect',
   },
 ];

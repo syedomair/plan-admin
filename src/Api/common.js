@@ -17,7 +17,7 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
     });
     requestedAPI
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         dispatch({
           type: SUCCESS,
           payload: {
@@ -27,7 +27,8 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
         });
       })
       .catch((error) => {
-        // console.log(error.response);
+        console.log(error);
+        console.log(error.response);
         dispatch({
           type: FAILURE,
           payload: {

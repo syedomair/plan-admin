@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 // @material-ui/icons
-// import Face from "@material-ui/icons/Face";
 import Email from '@material-ui/icons/Email';
 import LockOutline from '@material-ui/icons/LockOutlined';
 
@@ -19,20 +18,15 @@ import CardHeader from 'components/Card/CardHeader.jsx';
 import CardBody from 'components/Card/CardBody.jsx';
 import CardFooter from 'components/Card/CardFooter.jsx';
 
-//import withStyles from '@material-ui/core/styles/withStyles';
-//import loginPageStyle from 'assets/jss/material-dashboard-react/views/loginPageStyle.jsx';
-
 class LoginComp extends Component {
   constructor(props) {
     super(props);
-    // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: 'cardHidden',
     };
   }
 
   componentDidMount() {
-    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(() => {
       this.setState({ cardAnimaton: '' });
     }, 2500);
@@ -57,9 +51,6 @@ class LoginComp extends Component {
     );
   }
 
-  onRegisterClick() {
-      window.location = "register";
-  }
   render() {
     const { classes } = this.props;
 
@@ -119,16 +110,7 @@ class LoginComp extends Component {
                     </Button>
                   </CardFooter>
                   <CardFooter className={classes.justifyContentCenter}>
-                    <Button
-                      color="primary"
-                      round
-                      block
-                      onClick={this.onRegisterClick.bind(this)}
-                    >
-                      Register
-                    </Button>
-                  </CardFooter>
-                  <CardFooter >
+                    <Link to="register">Create a new Account</Link>
                   </CardFooter>
                 </Card>
               </form>

@@ -1,7 +1,5 @@
 import API from '../Api/api.js';
-//import { commonBackendCall, getConfig } from '../Api/common.js';
 import {
-  SET_REGISTER_NETWORK,
   SET_REGISTER_EMAIL,
   SET_REGISTER_FIRST_NAME,
   SET_REGISTER_LAST_NAME,
@@ -11,17 +9,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
 } from '../constants/Register';
-
-export function setNetwork(value) {
-  return (dispatch) => {
-    dispatch({
-      type: SET_REGISTER_NETWORK,
-      payload: {
-        value,
-      },
-    });
-  };
-}
+import { UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
 
 export function setEmail(value) {
   return (dispatch) => {
@@ -75,18 +63,6 @@ export function setPasswordConfirm(value) {
     });
   };
 }
-/*
-export function onShowPassword(value) {
-  return dispatch => {
-    dispatch({
-      type: SHOW_PASSWORD,
-      payload: {
-        value: value
-      }
-    });
-  };
-}
-*/
 
 function parseJwt(token) {
   const base64Url = token.split('.')[1];
@@ -102,41 +78,43 @@ export function onRegister(obj) {
         requesting: true,
       },
     });
+    dispatch({
+      type: RESET_UNDEFINED_ERROR,
+    });
     if (obj.password !== obj.passwordConfirm) {
       dispatch({
         type: REGISTER_FAILURE,
         payload: {
           requesting: false,
-          message: "Passwords don't match",
+          message: "Passwords doesn't match",
         },
       });
     }
-    const apiKey = localStorage.getItem('api_key');
-    let config = {};
-    if (apiKey !== undefined) {
-      config = {
-        headers: {
-          Apikey: apiKey,
-        },
-      };
-      API.post('register', obj, config)
-        .then((response) => {
-          // console.log(response);
-          if (response.data.result === 'success') {
-            const tokenObj = parseJwt(response.data.data.token);
-            localStorage.setItem('token', response.data.data.token);
-            localStorage.setItem('is_admin', tokenObj.is_admin);
-            localStorage.setItem('client_name', tokenObj.client_name);
-            dispatch({
-              type: REGISTER_SUCCESS,
-              payload: {
-                requesting: false,
-              },
-            });
-          }
-        })
-        .catch((error) => {
-          // console.log(error);
+    const config = {};
+    API.post('register', obj, config)
+      .then((response) => {
+        if (response.data.result === 'success') {
+          const tokenObj = parseJwt(response.data.data.token);
+          localStorage.setItem('token', response.data.data.token);
+          localStorage.setItem('is_admin', tokenObj.is_admin);
+          localStorage.setItem('client_name', tokenObj.client_name);
+          dispatch({
+            type: REGISTER_SUCCESS,
+            payload: {
+              requesting: false,
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response === undefined) {
+          dispatch({
+            type: UNDEFINED_ERROR,
+            payload: {
+              error: error.request.status,
+            },
+          });
+        } else {
           dispatch({
             type: REGISTER_FAILURE,
             payload: {
@@ -147,37 +125,7 @@ export function onRegister(obj) {
                   : 'Wrong e-mail or password',
             },
           });
-        });
-    } else {
-      API.post('register-owner', obj)
-        .then((response) => {
-          // console.log(response);
-          if (response.data.result === 'success') {
-            const tokenObj = parseJwt(response.data.data.token);
-            localStorage.setItem('token', response.data.data.token);
-            localStorage.setItem('is_admin', tokenObj.is_admin);
-            localStorage.setItem('client_name', tokenObj.client_name);
-            dispatch({
-              type: REGISTER_SUCCESS,
-              payload: {
-                requesting: false,
-              },
-            });
-          }
-        })
-        .catch((error) => {
-          // console.log(error);
-          dispatch({
-            type: REGISTER_FAILURE,
-            payload: {
-              requesting: false,
-              message:
-                typeof error.response !== 'undefined'
-                  ? error.response.data.data.message
-                  : 'Wrong e-mail or password',
-            },
-          });
-        });
-    }
+        }
+      });
   };
 }

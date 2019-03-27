@@ -1,5 +1,4 @@
 import API from 'Api/api.js';
-//import { commonBackendCall, getConfig } from 'Api/common.js';
 import {
   SET_EMAIL,
   SET_PASSWORD,
@@ -8,6 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
 } from 'constants/Login';
+import { UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
 
 export function setEmail(value) {
   return (dispatch) => {
@@ -57,6 +57,9 @@ export function onLogin(obj, redirect) {
         requesting: true,
       },
     });
+    dispatch({
+      type: RESET_UNDEFINED_ERROR,
+    });
     const apiKey = localStorage.getItem('api_key');
     let config = {};
     if (apiKey !== undefined) {
@@ -69,7 +72,6 @@ export function onLogin(obj, redirect) {
 
     API.post('login', obj, config)
       .then((response) => {
-        // console.log(response);
         if (response.data.result === 'success') {
           if (response.data.data.token === undefined) {
             localStorage.setItem(
@@ -88,7 +90,6 @@ export function onLogin(obj, redirect) {
             const tokenObj = parseJwt(response.data.data.token);
             localStorage.setItem('token', response.data.data.token);
             localStorage.setItem('is_admin', tokenObj.is_admin);
-            localStorage.setItem('network_name', tokenObj.network_name);
             localStorage.setItem('user_id', tokenObj.current_user_id);
             localStorage.setItem('email', tokenObj.email);
             localStorage.setItem('first_name', tokenObj.first_name);
@@ -105,14 +106,24 @@ export function onLogin(obj, redirect) {
         }
       })
       .catch((error) => {
-        dispatch({
-          type: LOGIN_FAILURE,
-          payload: {
-            requesting: false,
-            message: 'Wrong e-mail or password',
-            error,
-          },
-        });
+        if (error.response === undefined) {
+          dispatch({
+            type: UNDEFINED_ERROR,
+            payload: {
+              error: error.request.status,
+            },
+          });
+        } else {
+          dispatch({
+            type: LOGIN_FAILURE,
+            payload: {
+              requesting: false,
+              message: error.response.data.data.message,
+              error_code: error.response.data.data.error_code,
+              error,
+            },
+          });
+        }
       });
   };
 }

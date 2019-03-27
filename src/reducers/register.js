@@ -1,5 +1,4 @@
 import {
-  SET_REGISTER_NETWORK,
   SET_REGISTER_EMAIL,
   SET_REGISTER_FIRST_NAME,
   SET_REGISTER_LAST_NAME,
@@ -26,9 +25,6 @@ const initialState = {
 
 export default function register(state = initialState, action) {
   switch (action.type) {
-    case SET_REGISTER_NETWORK:
-      return { ...state, network: action.payload.value };
-
     case SET_REGISTER_EMAIL:
       return { ...state, email: action.payload.value };
 

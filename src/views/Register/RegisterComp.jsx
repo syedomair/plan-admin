@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // @material-ui/core components
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
-import CardMembership from '@material-ui/icons/CardMembership';
 import LockOutline from '@material-ui/icons/LockOutlined';
 import AccountBox from '@material-ui/icons/AccountBox';
 import Face from "@material-ui/icons/Face";
@@ -68,12 +67,9 @@ class RegisterComp extends Component {
     onRegisterClick() {
         this.props.onRegister({ first_name: this.props.firstName, last_name: this.props.lastName,  email: this.props.email, password: this.props.password });
     }
-
+ 
   render() {
     const { classes } = this.props;
-    if (localStorage.getItem('token')) {
-     return <Redirect to="/dashboard" />;
-    }
 
     return (
           <GridContainer justify="center">
@@ -178,6 +174,9 @@ class RegisterComp extends Component {
                     >
                       Register  
                     </Button>
+                  </CardFooter>
+                  <CardFooter className={classes.justifyContentCenter}>
+                    <Link to="login">Already have an Account</Link>
                   </CardFooter>
                 </Card>
               </form>

@@ -1,15 +1,25 @@
-// import { hashHistory } from 'react-router';
-import { AUTHORIZATION_REQUIRED } from '../constants/Default';
+import {
+  AUTHORIZATION_REQUIRED,
+  UNDEFINED_ERROR,
+  RESET_UNDEFINED_ERROR,
+} from '../constants/Default';
 
-const initialState = {};
+const initialState = {
+  unDefinedError: false,
+  error: '',
+};
 
 export default function defaultStates(state = initialState, action) {
-  // const redirectPathName = hashHistory.getCurrentLocation().pathname;
   switch (action.type) {
     case AUTHORIZATION_REQUIRED:
       localStorage.clear();
-      // hashHistory.push('/login');
-      return { ...state };
+      return { ...state, redirectToLogin: true };
+
+    case UNDEFINED_ERROR:
+      return { ...state, unDefinedError: true, error: action.payload.error };
+
+    case RESET_UNDEFINED_ERROR:
+      return { ...state, unDefinedError: false, error: '' };
 
     default:
       return state;

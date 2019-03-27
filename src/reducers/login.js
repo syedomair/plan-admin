@@ -14,6 +14,7 @@ const initialState = {
   requesting: false,
   showPassword: false,
   message: '',
+  error_code: '',
 };
 
 export default function login(state = initialState, action) {
@@ -60,6 +61,7 @@ export default function login(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        error_code: action.payload.error_code,
       };
 
     default:
