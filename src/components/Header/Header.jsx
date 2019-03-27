@@ -12,7 +12,6 @@ import Menu from "@material-ui/icons/Menu";
 // core components
 import HeaderLinks from "./HeaderLinks.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
 import headerStyle from "assets/jss/material-dashboard-react/components/headerStyle.jsx";
 
 function Header({ ...props }) {
@@ -41,18 +40,9 @@ function Header({ ...props }) {
               Admin Dashboard
           </Button>
         </div>
-        <Hidden smDown implementation="css">
+        <div>
           <HeaderLinks />
-        </Hidden>
-        <Hidden mdUp implementation="css">
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={props.handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
-        </Hidden>
+        </div>
       </Toolbar>
     </AppBar>
   );

@@ -1,14 +1,14 @@
 const requireNoAuth = (nextState, replace) => {
-  if (localStorage.getItem('access_token')) {
+  if (localStorage.getItem('token')) {
     replace({
       pathname: '/dashboard',
     });
   }
 };
 const requireAuth = (nextState, replace) => {
-  if (!localStorage.getItem('access_token')) {
+  if (!localStorage.getItem('token')) {
     replace({
-      pathname: '/pages/login-page',
+      pathname: '/public/login',
     });
   }
 };

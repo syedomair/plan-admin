@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import loginPageStyle from 'assets/jss/material-dashboard-react/views/loginPageStyle.jsx';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import * as loginActions from 'actions/LoginActions';
 import LoginComp from './Login/LoginComp';
 
@@ -21,9 +21,9 @@ class Login extends React.Component {
       setEmail, setPassword, onShowPassword, onLogin,
     } = this.props.loginActions;
 
-    // if (localStorage.getItem('access_token')) {
-    //  return <Redirect to="/dashboard" />;
-    // }
+    if (localStorage.getItem('token')) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <div className={classes.content}>
         <div className={classes.container}>

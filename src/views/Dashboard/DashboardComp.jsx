@@ -180,7 +180,7 @@ class DashboardComp extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>New Users Registered In Last One year</h4>
+                <h4 className={classes.cardTitle}>New User Registered In Last One year</h4>
                 <p className={classes.cardCategory}>
                 </p>
               </CardBody>
@@ -193,7 +193,7 @@ class DashboardComp extends React.Component {
           </GridItem>
         </GridContainer>
         <GridContainer>
-          <GridItem xs={12} sm={6} md={6}>
+          <GridItem xs={12} sm={6} md={4}>
             <Card>
               <CardHeader color="success" stats icon>
                 <CardIcon color="success">
@@ -210,7 +210,7 @@ class DashboardComp extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12} sm={6} md={6}>
+          <GridItem xs={12} sm={6} md={4}>
             <Card>
               <CardHeader color="info" stats icon>
                 <CardIcon color="info">
