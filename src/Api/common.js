@@ -1,3 +1,5 @@
+import { UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
+
 export function getConfig() {
   const config = {
     headers: {
@@ -15,9 +17,11 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
         requesting: true,
       },
     });
+    dispatch({
+      type: RESET_UNDEFINED_ERROR,
+    });
     requestedAPI
       .then((response) => {
-        console.log(response);
         dispatch({
           type: SUCCESS,
           payload: {
@@ -27,16 +31,23 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
         });
       })
       .catch((error) => {
-        console.log(error);
-        console.log(error.response);
-        dispatch({
-          type: FAILURE,
-          payload: {
-            requesting: false,
-            message: 'failure',
-            error,
-          },
-        });
+        if (error.response === undefined) {
+          dispatch({
+            type: UNDEFINED_ERROR,
+            payload: {
+              error: error.request.status,
+            },
+          });
+        } else {
+          dispatch({
+            type: FAILURE,
+            payload: {
+              requesting: false,
+              message: 'failure',
+              error,
+            },
+          });
+        }
       });
   };
 }

@@ -3,26 +3,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as usersListActions from 'actions/UsersListActions';
 import UsersListComp from './UsersList/UsersListComp';
+import UndefinedErrorSnackbar from 'components/Snackbar/UndefinedErrorSnackbar';
 
 class UsersList extends Component {
   render() {
-    const { user } = this.props;
+    const { user, defaultStates } = this.props;
     const {
       getUserList,
-      getAllRoles,
-      addUserRole,
-      removeUserRole,
     } = this.props.usersListActions;
     return (
       <div>
+        {defaultStates.unDefinedError ? <UndefinedErrorSnackbar error_code={defaultStates.error} /> : ''}
         <UsersListComp
           getUserList={getUserList}
           user_list={user.user_list.list === undefined ? [] : user.user_list.list}
-          getAllRoles={getAllRoles}
-          role_all_list_user={user.role_all_list_user.list === undefined ? [] : user.role_all_list_user.list}
-          addUserRole={addUserRole}
-          removeUserRole={removeUserRole}
-          refreshUser={user.refreshUser}
           classes={this.props}
         />
       </div>
@@ -32,6 +26,7 @@ class UsersList extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
+    defaultStates: state.defaultStates,
   };
 }
 
