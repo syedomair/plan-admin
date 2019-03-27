@@ -1,5 +1,5 @@
 import API from '../Api/api.js';
-import { commonBackendCall, getConfig } from '../Api/api.js';
+import { commonBackendCall, getConfig } from '../Api/common.js';
 import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,

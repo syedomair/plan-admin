@@ -71,7 +71,7 @@ class DashboardComp extends React.Component {
     }
     if(props.total_plan !== undefined){
     this.setState({
-      total_plan: props.total_plan.user_total_count
+      total_plan: props.total_plan.plan_total_count
     });
     }
     if(props.user_reg_data !== undefined){

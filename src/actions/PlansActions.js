@@ -1,5 +1,5 @@
 import API from '../Api/api.js';
-import { commonBackendCall, getConfig } from '../Api/api.js';
+import { commonBackendCall, getConfig } from '../Api/common.js';
 import {
   GET_ALL_PLAN_REQUEST,
   GET_ALL_PLAN_SUCCESS,
@@ -18,9 +18,9 @@ import {
 
 export function getPlans() {
   return commonBackendCall(
-    GET_PLAN_REQUEST,
-    GET_PLAN_SUCCESS,
-    GET_PLAN_FAILURE,
+    GET_ALL_PLAN_REQUEST,
+    GET_ALL_PLAN_SUCCESS,
+    GET_ALL_PLAN_FAILURE,
     API.get('plans', getConfig()),
   );
 }
