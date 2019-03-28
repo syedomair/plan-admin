@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as usersListActions from 'actions/UsersListActions';
-import UsersListComp from './UsersList/UsersListComp';
 import UndefinedErrorSnackbar from 'components/Snackbar/UndefinedErrorSnackbar';
+import UsersListComp from './UsersList/UsersListComp';
 
 class UsersList extends Component {
   render() {
