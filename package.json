@@ -1,12 +1,12 @@
 {
-  "name": "react-demo",
+  "name": "material-dashboard-react",
   "version": "1.5.0",
-  "description": "ReactJs Demo created by Syed Omair",
+  "description": "Material Dashboard React. Coded by Creative Tim",
   "private": true,
   "main": "dist/index.js",
   "engines": {
-    "node": "11.10.0",
-    "npm": "6.7.0"
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
   },
   "dependencies": {
     "@devexpress/dx-core": "1.10.1",
@@ -19,7 +19,7 @@
     "@types/googlemaps": "3.30.13",
     "@types/react": "16.8.2",
     "@types/markerclustererplus": "2.1.33",
-    "ajv": "^5.0.0",
+    "ajv": "^6.10.0",
     "axios": "^0.18.0",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
@@ -54,19 +54,24 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "ts-pnp": "1.0.1",
+    "typescript": "3.3.4000"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start1": "PORT=3007 NODE_PATH=./src react-scripts start",
-    "start-js": "NODE_PATH=./src react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
+    "start1": "PORT=3006 NODE_PATH=./src react-scripts start",
+    "start-js": "react-scripts start",
+    "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
     "build": "npm run build-css && NODE_PATH=./src react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "lint:check": "eslint . --ext=js,jsx;  exit 0",
+    "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
     "build-package": "babel src --out-dir dist",
+    "lint": "eslint src/**/*.js src/**/*.jsx",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
@@ -83,7 +88,13 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-plugin-transform-react-jsx": "6.24.1",
     "@babel/core": "7.2.2",
-    "@babel/preset-env": "7.3.1"
+    "@babel/preset-env": "7.3.1",
+    "eslint": "5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-flowtype": "2.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.12.4"
   },
   "browserslist": [
     ">0.2%",
