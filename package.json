@@ -66,10 +66,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "lint:check": "eslint . --ext=js,jsx;  exit 0",
-    "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
     "build-package": "babel src --out-dir dist",
-    "lint": "eslint src/**/*.js src/**/*.jsx",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
@@ -86,13 +83,7 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-plugin-transform-react-jsx": "6.24.1",
     "@babel/core": "7.2.2",
-    "@babel/preset-env": "7.3.1",
-    "eslint": "5.12.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-flowtype": "3.4.2",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "6.2.1",
-    "eslint-plugin-react": "7.12.4"
+    "@babel/preset-env": "7.3.1"
   },
   "browserslist": [
     ">0.2%",
