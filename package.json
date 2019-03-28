@@ -62,7 +62,7 @@
     "start1": "PORT=3007 NODE_PATH=./src react-scripts start",
     "start-js": "react-scripts start",
     "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && NODE_PATH=./src react-scripts build",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
