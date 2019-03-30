@@ -17,6 +17,7 @@ class UsersList extends Component {
         <UsersListComp
           getUserList={getUserList}
           user_list={user.user_list.list === undefined ? [] : user.user_list.list}
+          requesting={user.requesting}
           classes={this.props}
         />
       </div>

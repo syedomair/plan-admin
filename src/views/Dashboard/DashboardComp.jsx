@@ -1,25 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 // react plugin for creating charts
-import ChartistGraph from "react-chartist";
+import ChartistGraph from 'react-chartist';
 // @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 // @material-ui/icons
-import Store from "@material-ui/icons/Store";
-import Update from "@material-ui/icons/Update";
-import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
+import Store from '@material-ui/icons/Store';
+import Update from '@material-ui/icons/Update';
+import AccessTime from '@material-ui/icons/AccessTime';
+import Accessibility from '@material-ui/icons/Accessibility';
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
+import GridItem from 'components/Grid/GridItem.jsx';
+import GridContainer from 'components/Grid/GridContainer.jsx';
+import Card from 'components/Card/Card.jsx';
+import CardHeader from 'components/Card/CardHeader.jsx';
+import CardIcon from 'components/Card/CardIcon.jsx';
+import CardBody from 'components/Card/CardBody.jsx';
+import CardFooter from 'components/Card/CardFooter.jsx';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-
-import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import dashboardStyle from 'assets/jss/material-dashboard-react/views/dashboardStyle.jsx';
 
 const Chartist = require('chartist');
 
@@ -30,11 +30,12 @@ class DashboardComp extends React.Component {
     total_plan: 0,
     user_reg_data: [],
   };
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
-  handleChangeIndex = index => {
+  handleChangeIndex = (index) => {
     this.setState({ value: index });
   };
 
@@ -45,23 +46,23 @@ class DashboardComp extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if(props.total_user !== undefined){
-    this.setState({
-      total_user: props.total_user.user_total_count
-    });
+    if (props.total_user !== undefined) {
+      this.setState({
+        total_user: props.total_user.user_total_count,
+      });
     }
-    if(props.total_plan !== undefined){
-    this.setState({
-      total_plan: props.total_plan.plan_total_count
-    });
+    if (props.total_plan !== undefined) {
+      this.setState({
+        total_plan: props.total_plan.plan_total_count,
+      });
     }
-    if(props.user_reg_data !== undefined){
-    this.setState({
-      user_reg_data: props.user_reg_data
-    });
+    if (props.user_reg_data !== undefined) {
+      this.setState({
+        user_reg_data: props.user_reg_data,
+      });
     }
-  
   }
+
   render() {
     const { classes } = this.props;
     const delays = 80;
@@ -74,18 +75,18 @@ class DashboardComp extends React.Component {
     let j = 0;
     const m = new Date().getMonth();
     let y = new Date().getFullYear();
-    
+
     for (let i = m; i >= -11; i--) {
       arrangedMonths.push(months[i]);
-      let monthData = this.props.user_reg_data.filter(data => (parseInt(data.month,10)-1) === i && parseInt(data.year,10) === y)
-      let count = monthData.length>0?monthData[0].count:0; 
-      if (count > maxMonthlyNum){
-         maxMonthlyNum = count;
+      const monthData = this.props.user_reg_data.filter(data => (parseInt(data.month, 10) - 1) === i && parseInt(data.year, 10) === y);
+      const count = monthData.length > 0 ? monthData[0].count : 0;
+      if (count > maxMonthlyNum) {
+        maxMonthlyNum = count;
       }
       arrangedMonthsData.push(count);
       if (i === 0) {
         i = 12;
-        y = y -1;
+        y -= 1;
       }
       if (j === 11) {
         break;
@@ -162,12 +163,13 @@ class DashboardComp extends React.Component {
               </CardHeader>
               <CardBody>
                 <h4 className={classes.cardTitle}>New User Registered In Last One year</h4>
-                <p className={classes.cardCategory}>
-                </p>
+                <p className={classes.cardCategory} />
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
-                  <AccessTime /> updated now
+                  <AccessTime />
+                  {' '}
+updated now
                 </div>
               </CardFooter>
             </Card>
@@ -209,13 +211,14 @@ class DashboardComp extends React.Component {
             </Card>
           </GridItem>
         </GridContainer>
+       {this.props.requesting && <CircularProgress size={44}  style={{ position: 'absolute', top: '50%', left: '50%' }}  />}
       </div>
     );
   }
 }
 
 DashboardComp.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(dashboardStyle)(DashboardComp);

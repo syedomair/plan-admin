@@ -1,4 +1,4 @@
-import { UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
+import { AUTHORIZATION_REQUIRED,UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
 
 export function getConfig() {
   const config = {
@@ -37,6 +37,10 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
             payload: {
               error: error.request.status,
             },
+          });
+        } else if (error.request.status === 401) {
+          dispatch({
+            type: AUTHORIZATION_REQUIRED,
           });
         } else {
           dispatch({

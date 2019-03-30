@@ -1,28 +1,16 @@
 import * as React from 'react';
 import MUIDataTable from 'mui-datatables';
-import Button from 'components/CustomButtons/Button.jsx';
-import ReorderIcon from '@material-ui/icons/Reorder';
-import DeleteForeverOutlined from '@material-ui/icons/DeleteForeverOutlined';
 
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Card from '@material-ui/core/Card';
+import CardHeader from 'components/Card/CardHeader';
+import CardBody from 'components/Card/CardBody';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class UsersListComp extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false,
-      dialog_state: '',
-      select_role_id: '',
-      select_user_id: '',
-      //role_list: [],
       columns: [
         {
           name: 'first_name',
@@ -64,22 +52,24 @@ class UsersListComp extends React.PureComponent {
   }
 
   render() {
-    //const { classes } = this.props;
+    // const { classes } = this.props;
     const options = {
       filter: true,
       filterType: 'dropdown',
       responsive: 'stacked',
       selectableRows: false,
     };
-    let saveBtnText = 'Save';
-    if (this.state.dialog_state === 'delete') {
-      saveBtnText = 'Remove Role';
-    } else if (this.state.dialog_state === 'add') {
-      saveBtnText = 'Add Role';
-    }
     return (
       <div>
-        <MUIDataTable title="Users" data={this.state.rows} columns={this.state.columns} options={options} />
+        <Card>
+          <CardHeader color="primary" style={{ textAlign: 'left', paddingTop: '30px' }}>
+            <b>Users</b>
+          </CardHeader>
+          <CardBody>
+            <MUIDataTable title="" data={this.state.rows} columns={this.state.columns} options={options} />
+          </CardBody>
+        </Card>
+       {this.props.requesting && <CircularProgress size={44}  style={{ position: 'absolute', top: '50%', left: '50%' }}  />}
       </div>
     );
   }

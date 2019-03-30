@@ -13,7 +13,9 @@ const styles = theme => ({
   },
 });
 
-const RemoteLookupEditCellBase = ({ value, onValueChange, classes, lookupList }) => (
+const RemoteLookupEditCellBase = ({
+  value, onValueChange, classes, lookupList,
+}) => (
   <TableCell
     className={classes.lookupEditCell}
   >
@@ -35,4 +37,3 @@ const RemoteLookupEditCellBase = ({ value, onValueChange, classes, lookupList })
   </TableCell>
 );
 export default withStyles(styles)(RemoteLookupEditCellBase);
-

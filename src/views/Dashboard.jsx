@@ -21,6 +21,7 @@ class Dashboard extends Component {
           user_reg_data={dashboard.user_reg_data === undefined ? [] : dashboard.user_reg_data}
           total_user={dashboard.total_user}
           total_plan={dashboard.total_plan}
+          requesting={dashboard.requesting}
           // classes={this.props}
         />
       </div>

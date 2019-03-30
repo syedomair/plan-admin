@@ -13,6 +13,7 @@ export default function defaultStates(state = initialState, action) {
   switch (action.type) {
     case AUTHORIZATION_REQUIRED:
       localStorage.clear();
+      window.location.reload();
       return { ...state, redirectToLogin: true };
 
     case UNDEFINED_ERROR:

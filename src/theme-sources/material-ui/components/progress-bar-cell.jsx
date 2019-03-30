@@ -41,4 +41,3 @@ ProgressBarCellBase.defaultProps = {
 };
 
 export const ProgressBarCell = withStyles(styles, { name: 'ProgressBarCell' })(ProgressBarCellBase);
-

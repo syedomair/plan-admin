@@ -4,6 +4,7 @@ import login from './login';
 import register from './register';
 import user from './user';
 import plan from './plan';
+import planMsg from './planMsg';
 import dashboard from './dashboard';
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   register,
   user,
   plan,
+  planMsg,
   dashboard,
 });
