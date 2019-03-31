@@ -57,6 +57,7 @@ function CustomInput({ ...props }) {
           underline: underlineClasses,
         }}
         id={id}
+        type={inputProps !== undefined ? inputProps.input_type === 'password' ? 'password' : 'text' : 'text'}
         {...inputProps}
       />
       {error ? (

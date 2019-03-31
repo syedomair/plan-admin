@@ -27,6 +27,7 @@ class DashboardComp extends React.Component {
   state = {
     value: 0,
     total_user: 0,
+    total_user_30days: 0,
     total_plan: 0,
     user_reg_data: [],
   };
@@ -40,12 +41,18 @@ class DashboardComp extends React.Component {
   };
 
   componentDidMount() {
+    this.props.getTotalUsersLast30Days();
     this.props.getTotalUsers();
     this.props.getTotalPlans();
     this.props.getUserRegData();
   }
 
   componentWillReceiveProps(props) {
+    if (props.total_user_30days !== undefined) {
+      this.setState({
+        total_user_30days: props.total_user_30days.user_total_count,
+      });
+    }
     if (props.total_user !== undefined) {
       this.setState({
         total_user: props.total_user.user_total_count,
@@ -201,6 +208,23 @@ updated now
                 </CardIcon>
                 <p className={classes.cardCategory}>Total Registered User</p>
                 <h3 className={classes.cardTitle}>{this.state.total_user}</h3>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  <Update />
+                  Just Updated
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={4}>
+            <Card>
+              <CardHeader color="info" stats icon>
+                <CardIcon color="info">
+                  <AccessTime />
+                </CardIcon>
+                <p className={classes.cardCategory}>New Users In Last 30 Days</p>
+                <h3 className={classes.cardTitle}>{this.state.total_user_30days}</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>

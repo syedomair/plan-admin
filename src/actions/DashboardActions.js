@@ -4,6 +4,9 @@ import {
   GET_USER_TOTAL_REQUEST,
   GET_USER_TOTAL_SUCCESS,
   GET_USER_TOTAL_FAILURE,
+  GET_USER_30DAY_REQUEST,
+  GET_USER_30DAY_SUCCESS,
+  GET_USER_30DAY_FAILURE,
   GET_PLAN_TOTAL_REQUEST,
   GET_PLAN_TOTAL_SUCCESS,
   GET_PLAN_TOTAL_FAILURE,
@@ -13,6 +16,14 @@ import {
 } from '../constants/Dashboard';
 
 
+export function getTotalUsersLast30Days() {
+  return commonBackendCall(
+    GET_USER_30DAY_REQUEST,
+    GET_USER_30DAY_SUCCESS,
+    GET_USER_30DAY_FAILURE,
+    API.get('stats/user-count-30-days', getConfig()),
+  );
+}
 export function getTotalUsers() {
   return commonBackendCall(
     GET_USER_TOTAL_REQUEST,

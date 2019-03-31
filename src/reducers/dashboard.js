@@ -2,6 +2,9 @@ import {
   GET_USER_TOTAL_REQUEST,
   GET_USER_TOTAL_SUCCESS,
   GET_USER_TOTAL_FAILURE,
+  GET_USER_30DAY_REQUEST,
+  GET_USER_30DAY_SUCCESS,
+  GET_USER_30DAY_FAILURE,
   GET_PLAN_TOTAL_REQUEST,
   GET_PLAN_TOTAL_SUCCESS,
   GET_PLAN_TOTAL_FAILURE,
@@ -14,12 +17,33 @@ const initialState = {
   requesting: false,
   message: '',
   total_user: '',
+  total_user_30days: '',
   total_plan: '',
   user_reg_data: [],
 };
 
 export default function dashboard(state = initialState, action) {
   switch (action.type) {
+    case GET_USER_30DAY_REQUEST:
+      return {
+        ...state,
+        requesting: action.payload.requesting,
+      };
+
+    case GET_USER_30DAY_SUCCESS:
+      return {
+        ...state,
+        requesting: action.payload.requesting,
+        message: action.payload.message,
+        total_user_30days: action.payload.data,
+      };
+
+    case GET_USER_30DAY_FAILURE:
+      return {
+        ...state,
+        requesting: action.payload.requesting,
+        message: action.payload.message,
+      };
     case GET_USER_TOTAL_REQUEST:
       return {
         ...state,

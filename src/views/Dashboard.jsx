@@ -11,15 +11,18 @@ class Dashboard extends Component {
       getTotalUsers,
       getTotalPlans,
       getUserRegData,
+      getTotalUsersLast30Days,
     } = this.props.dashboardActions;
     return (
       <div>
         <DashboardComp
+          getTotalUsersLast30Days={getTotalUsersLast30Days}
           getTotalUsers={getTotalUsers}
           getTotalPlans={getTotalPlans}
           getUserRegData={getUserRegData}
           user_reg_data={dashboard.user_reg_data === undefined ? [] : dashboard.user_reg_data}
           total_user={dashboard.total_user}
+          total_user_30days={dashboard.total_user_30days}
           total_plan={dashboard.total_plan}
           requesting={dashboard.requesting}
           // classes={this.props}
