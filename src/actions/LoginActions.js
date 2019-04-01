@@ -101,7 +101,6 @@ export function onLogin(obj, redirect) {
     }
 
     const config = {};
-    setTimeout(() => {
       API.post('login', obj, config)
         .then((response) => {
           if (response.data.result === 'success') {
@@ -154,6 +153,5 @@ export function onLogin(obj, redirect) {
             });
           }
         });
-    }, 5000);
   };
 }

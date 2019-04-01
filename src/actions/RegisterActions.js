@@ -163,7 +163,6 @@ export function onRegister(obj, passwordConfirm) {
       return;
     }
     const config = {};
-    setTimeout(() => {
       API.post('register', obj, config)
         .then((response) => {
           if (response.data.result === 'success') {
@@ -200,6 +199,5 @@ export function onRegister(obj, passwordConfirm) {
             });
           }
         });
-    }, 5000);
   };
 }
