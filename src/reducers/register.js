@@ -4,7 +4,6 @@ import {
   SET_REGISTER_LAST_NAME,
   SET_REGISTER_PASSWORD,
   SET_REGISTER_PASSWORD_CONFIRM,
-  // SHOW_PASSWORD,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
@@ -20,6 +19,7 @@ const initialState = {
   requesting: false,
   showPassword: false,
   message: '',
+  error_code: '',
   messageType: '',
 };
 
@@ -41,10 +41,14 @@ export default function register(state = initialState, action) {
       return { ...state, passwordConfirm: action.payload.value };
 
     case REGISTER_REQUEST:
-      return { ...state, requesting: action.payload.requesting };
+      return {
+        ...state,
+        requesting: action.payload.requesting,
+        message: '',
+        error_code: '',
+      };
 
     case REGISTER_SUCCESS:
-      // hashHistory.push('/dashboard');
       return {
         ...state,
         requesting: action.payload.requesting,
@@ -56,6 +60,7 @@ export default function register(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        error_code: action.payload.error_code,
       };
 
     default:

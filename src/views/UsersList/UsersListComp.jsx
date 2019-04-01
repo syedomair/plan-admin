@@ -69,7 +69,7 @@ class UsersListComp extends React.PureComponent {
             <MUIDataTable title="" data={this.state.rows} columns={this.state.columns} options={options} />
           </CardBody>
         </Card>
-       {this.props.requesting && <CircularProgress size={44}  style={{ position: 'absolute', top: '50%', left: '50%' }}  />}
+        {this.props.requesting && <CircularProgress size={44} style={{ position: 'absolute', top: '50%', left: '50%' }} />}
       </div>
     );
   }

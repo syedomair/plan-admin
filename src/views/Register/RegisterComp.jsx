@@ -20,9 +20,7 @@ import Card from 'components/Card/Card.jsx';
 import CardHeader from 'components/Card/CardHeader.jsx';
 import CardBody from 'components/Card/CardBody.jsx';
 import CardFooter from 'components/Card/CardFooter.jsx';
-
-// import withStyles from '@material-ui/core/styles/withStyles';
-// import loginPageStyle from 'assets/jss/material-dashboard-react/views/loginPageStyle.jsx';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class RegisterComp extends Component {
   constructor(props) {
@@ -30,6 +28,12 @@ class RegisterComp extends Component {
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: 'cardHidden',
+      firstNameError: false,
+      lastNameError: false,
+      emailError: false,
+      passwordError: false,
+      passwordConfirmError: false,
+      message: '',
     };
   }
 
@@ -38,6 +42,101 @@ class RegisterComp extends Component {
     setTimeout(() => {
       this.setState({ cardAnimaton: '' });
     }, 2500);
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ message: props.message });
+
+    if (props.error_code === '1001') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: true,
+        passwordError: false,
+        passwordConfirmError: false,
+      });
+    }
+    if (props.error_code === '1115') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: false,
+        passwordError: true,
+        passwordConfirmError: true,
+      });
+    }
+    if (props.error_code === '1081') {
+      this.setState({
+        firstNameError: true,
+        lastNameError: true,
+        emailError: false,
+        passwordError: false,
+        passwordConfirmError: false,
+      });
+    }
+    if (props.error_code === '1082') {
+      this.setState({
+        firstNameError: true,
+        lastNameError: false,
+        emailError: false,
+        passwordError: false,
+        passwordConfirmError: false,
+      });
+    }
+    if (props.error_code === '1083') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: true,
+        emailError: false,
+        passwordError: false,
+        passwordConfirmError: false,
+      });
+    }
+    if (props.error_code === '1084') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: true,
+        passwordError: false,
+        passwordConfirmError: false,
+      });
+    }
+    if (props.error_code === '1085') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: false,
+        passwordError: true,
+        passwordConfirmError: false,
+      });
+    }
+    if (props.error_code === '1086') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: false,
+        passwordError: false,
+        passwordConfirmError: true,
+      });
+    }
+    if (props.error_code === '1087') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: false,
+        passwordError: true,
+        passwordConfirmError: true,
+      });
+    }
+    if (props.error_code === '') {
+      this.setState({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: false,
+        passwordError: false,
+        passwordConfirmError: false,
+      });
+    }
   }
 
   onEmailChange(e) {
@@ -60,19 +159,14 @@ class RegisterComp extends Component {
     this.props.setPasswordConfirm(e.target.value);
   }
 
-  onShowPasswordClick() {
-    this.props.onShowPassword(!this.props.showPassword);
-  }
-
   onRegisterClick() {
     this.props.onRegister({
       first_name: this.props.firstName, last_name: this.props.lastName, email: this.props.email, password: this.props.password,
-    });
+    }, this.props.passwordConfirm);
   }
 
   render() {
     const { classes } = this.props;
-
     return (
       <GridContainer justify="center">
         <GridItem xs={12} sm={6} md={4}>
@@ -83,7 +177,7 @@ class RegisterComp extends Component {
               </CardHeader>
 
               <CardBody>
-                {/* <div style={{ color: "red" }}>{this.props.message}</div> */}
+                <div style={{ color: 'red' }}>{this.state.message}</div>
 
                 <CustomInput
                   labelText="First Name"
@@ -93,6 +187,7 @@ class RegisterComp extends Component {
                   }}
                   inputProps={{
                     onChange: this.onFirstNameChange.bind(this),
+                    error: this.state.firstNameError,
                     endAdornment: (
                       <InputAdornment position="end">
                         <Face className={classes.inputAdornmentIcon} />
@@ -108,6 +203,7 @@ class RegisterComp extends Component {
                   }}
                   inputProps={{
                     onChange: this.onLastNameChange.bind(this),
+                    error: this.state.lastNameError,
                     endAdornment: (
                       <InputAdornment position="end">
                         <AccountBox className={classes.inputAdornmentIcon} />
@@ -123,6 +219,7 @@ class RegisterComp extends Component {
                   }}
                   inputProps={{
                     onChange: this.onEmailChange.bind(this),
+                    error: this.state.emailError,
                     endAdornment: (
                       <InputAdornment position="end">
                         <Email className={classes.inputAdornmentIcon} />
@@ -139,6 +236,7 @@ class RegisterComp extends Component {
                   inputProps={{
                     input_type: 'password',
                     onChange: this.onPasswordChange.bind(this),
+                    error: this.state.passwordError,
                     endAdornment: (
                       <InputAdornment position="end">
                         <LockOutline
@@ -157,6 +255,7 @@ class RegisterComp extends Component {
                   inputProps={{
                     input_type: 'password',
                     onChange: this.onPasswordConfirmChange.bind(this),
+                    error: this.state.passwordConfirmError,
                     endAdornment: (
                       <InputAdornment position="end">
                         <Lock
@@ -173,9 +272,11 @@ class RegisterComp extends Component {
                   round
                   block
                   onClick={this.onRegisterClick.bind(this)}
+                  disabled={this.props.requesting}
                 >
                       Register
                 </Button>
+                {this.props.requesting && <CircularProgress size={24} style={{ position: 'absolute', top: '84%', left: '47%' }} />}
               </CardFooter>
               <CardFooter className={classes.justifyContentCenter}>
                 <Link to="login">Already have an Account</Link>

@@ -33,7 +33,7 @@ function Footer({ ...props }) {
             {1900 + new Date().getYear()}
             {' '}
             <a href="https://github.com/syedomair" className={classes.a}>
-              Syed Omair 
+              Syed Omair
             </a>
           </span>
         </p>

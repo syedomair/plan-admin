@@ -42,6 +42,9 @@ class PlanMsg extends Component {
           deletePlanMsg={deletePlanMsg}
           refreshPlanMsg={planMsg.refreshPlanMsg}
           requesting={planMsg.requesting}
+          message={planMsg.message}
+          success_message={planMsg.success_message}
+          error_core={planMsg.error_core}
         />
       </div>
     );

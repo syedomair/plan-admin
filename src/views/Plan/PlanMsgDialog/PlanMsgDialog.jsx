@@ -19,6 +19,7 @@ export default class PlanMsgDialog extends React.Component {
     action: '',
     actionValue: '',
     message: '',
+    error_message: '',
     dialog_state: '',
     action_list: [{ id: 'COST_UPDATE', title: 'Cost Updated' }, { id: 'VALIDITY_UPDATE', title: 'Validity Days Updated' }],
   };
@@ -41,6 +42,18 @@ export default class PlanMsgDialog extends React.Component {
   };
 
   handleSave = () => {
+    if(this.state.message === '' && this.state.action === ''){
+        this.setState({ error_message: 'Message Template and Action can not be blank.' });
+        return
+    } 
+    if(this.state.message === '' ){
+        this.setState({ error_message: 'Message Template can not be blank.' });
+        return
+    } 
+    if(this.state.action === ''){
+        this.setState({ error_message: 'Action can not be blank.' });
+        return
+    } 
     if (this.state.dialog_state === 'update') {
       this.props.updatePlanMsg(this.props.plan_msg_id, { message: this.state.message, action: this.state.action });
     } else if (this.state.dialog_state === 'delete') {
@@ -48,8 +61,8 @@ export default class PlanMsgDialog extends React.Component {
     } else if (this.state.dialog_state === 'add') {
       this.props.createPlanMsg(this.props.plan_id, { message: this.state.message, action: this.state.action });
     }
-    
-    if(this.props.requesting){
+
+    if (this.props.requesting) {
     }
   };
 
@@ -76,15 +89,13 @@ export default class PlanMsgDialog extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if(!props.requesting) {
-        this.setState({ open: false });
+    if (!props.requesting) {
+      this.setState({ open: false });
     }
   }
 
   render() {
     // const { classes } = this.props;
-
-
     let updateDeleteDiv = '';
     let addDiv = '';
     if (this.props.plan_msg_id) {
@@ -95,7 +106,7 @@ export default class PlanMsgDialog extends React.Component {
         </div>
       );
     } else {
-      addDiv = (<div><Button color="primary" round onClick={this.handleAddClickOpen}>Add New Plan Message</Button></div>);
+      addDiv = (<div><Button color="primary" round onClick={this.handleAddClickOpen}>Add New Plan Email Message Template</Button></div>);
     }
     let saveBtnText = 'Save';
     if (this.state.dialog_state === 'update') {
@@ -103,7 +114,7 @@ export default class PlanMsgDialog extends React.Component {
     } else if (this.state.dialog_state === 'delete') {
       saveBtnText = 'Delete Plan Message';
     } else if (this.state.dialog_state === 'add') {
-      saveBtnText = 'Add New Plan Message';
+      saveBtnText = 'Add New Plan Email Message Template';
     }
     return (
       <div>
@@ -116,6 +127,7 @@ export default class PlanMsgDialog extends React.Component {
         >
           <DialogTitle id="form-dialog-title">{this.state.dialog_state === 'delete' ? 'Do you want to delete this Plan Message' : 'Plan Message'}</DialogTitle>
           <DialogContent>
+            <div style={{ color: 'red', textAlign: 'center' }}>{this.state.error_message}</div>
             <form>
               <InputLabel htmlFor="action-simple">Action</InputLabel>
               <Select
@@ -166,7 +178,7 @@ export default class PlanMsgDialog extends React.Component {
             <Button variant="contained" onClick={this.handleSave} color="primary" round disabled={this.props.requesting}>
               {saveBtnText}
             </Button>
-            {this.props.requesting && <CircularProgress size={24}  style={{ position: 'absolute', top: '94%', left: '74%' }}  />}
+            {this.props.requesting && <CircularProgress size={24} style={{ position: 'absolute', top: '94%', left: '74%' }} />}
           </DialogActions>
         </Dialog>
       </div>

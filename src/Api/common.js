@@ -1,4 +1,4 @@
-import { AUTHORIZATION_REQUIRED,UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
+import { AUTHORIZATION_REQUIRED, UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
 
 export function getConfig() {
   const config = {
@@ -47,11 +47,16 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
             type: FAILURE,
             payload: {
               requesting: false,
-              message: 'failure',
-              error,
+              message: error.response.data.data.message,
+              error_code: error.response.data.data.error_code,
             },
           });
         }
       });
   };
+}
+
+export function validateEmail(email) {
+  var re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  return !re.test(email);
 }

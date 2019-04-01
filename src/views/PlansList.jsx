@@ -26,6 +26,9 @@ class PlansList extends Component {
           deletePlan={deletePlan}
           refreshPlan={plan.refreshPlan}
           requesting={plan.requesting}
+          message={plan.message}
+          success_message={plan.success_message}
+          error_core={plan.error_core}
           classes={this.props}
         />
       </div>

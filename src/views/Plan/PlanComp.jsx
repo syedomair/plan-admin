@@ -34,7 +34,9 @@ class PlanComp extends React.Component {
 
   componentWillReceiveProps(props) {
     if (props.refreshPlanMsg) {
-      this.props.getPlanMsg(props.plan_id);
+      setTimeout(() => {
+          this.props.getPlanMsg(props.plan_id);
+      }, 3000);
     }
   }
 
@@ -92,17 +94,18 @@ class PlanComp extends React.Component {
     }
     return (
       <div>
-       {this.props.requesting && <CircularProgress size={44}  style={{ position: 'absolute', top: '50%', left: '50%' }}  />}
+        {this.props.requesting && <CircularProgress size={44} style={{ position: 'absolute', top: '50%', left: '50%' }} />}
         <Card>
           <CardHeader color="primary">
             <div style={{ float: 'left' }}>
               <b>
-Plan Messages Template for :
-                {this.props.plan_title}
+Plan Messages Email Template for:{" "} {this.props.plan_title}
               </b>
             </div>
           </CardHeader>
           <CardBody>
+            <div style={{ color: 'red', textAlign: 'center' }}>{this.props.message}</div>
+            <div style={{ color: 'green', textAlign: 'center' }}>{this.props.success_message}</div>
             <PlanMsgDialog
               plan_msg_list={this.props.plan_msg_list}
               plan_id={this.props.plan_id}

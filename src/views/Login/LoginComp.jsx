@@ -17,12 +17,16 @@ import Card from 'components/Card/Card.jsx';
 import CardHeader from 'components/Card/CardHeader.jsx';
 import CardBody from 'components/Card/CardBody.jsx';
 import CardFooter from 'components/Card/CardFooter.jsx';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class LoginComp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cardAnimaton: 'cardHidden',
+      emailError: false,
+      passwordError: false,
+      message: '',
     };
   }
 
@@ -32,16 +36,34 @@ class LoginComp extends Component {
     }, 2500);
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({ message: props.message });
+    if (props.error_code === '1004') {
+      this.setState({ emailError: true, passwordError: true });
+    }
+    if (props.error_code === '1091') {
+      this.setState({ emailError: true, passwordError: false });
+    }
+    if (props.error_code === '1092') {
+      this.setState({ emailError: false, passwordError: true });
+    }
+    if (props.error_code === '1093' ||  props.error_code === '1115') {
+      this.setState({ emailError: false, passwordError: true });
+    }
+    if (props.error_code === '1114') {
+      this.setState({ emailError: true, passwordError: false });
+    }
+    if (props.error_code === '') {
+      this.setState({ emailError: false, passwordError: false });
+    }
+  }
+
   onEmailChange(e) {
     this.props.setEmail(e.target.value);
   }
 
   onPasswordChange(e) {
     this.props.setPassword(e.target.value);
-  }
-
-  onShowPasswordClick() {
-    // this.props.onShowPassword(!this.props.showPassword);
   }
 
   onLoginClick() {
@@ -64,7 +86,7 @@ class LoginComp extends Component {
               </CardHeader>
 
               <CardBody>
-                {/* <div style={{ color: "red" }}>{this.props.message}</div> */}
+                { <div style={{ color: 'red' }}>{this.state.message}</div> }
                 <CustomInput
                   labelText="Email"
                   id="email"
@@ -73,6 +95,7 @@ class LoginComp extends Component {
                   }}
                   inputProps={{
                     onChange: this.onEmailChange.bind(this),
+                    error: this.state.emailError,
                     endAdornment: (
                       <InputAdornment position="end">
                         <Email className={classes.inputAdornmentIcon} />
@@ -88,6 +111,7 @@ class LoginComp extends Component {
                   }}
                   inputProps={{
                     input_type: 'password',
+                    error: this.state.passwordError,
                     onChange: this.onPasswordChange.bind(this),
                     endAdornment: (
                       <InputAdornment position="end">
@@ -105,9 +129,11 @@ class LoginComp extends Component {
                   round
                   block
                   onClick={this.onLoginClick.bind(this)}
+                  disabled={this.props.requesting}
                 >
                       Log In
                 </Button>
+                {this.props.requesting && <CircularProgress size={24} style={{ position: 'absolute', top: '74%', left: '47%' }} />}
               </CardFooter>
               <CardFooter className={classes.justifyContentCenter}>
                 <Link to="register">Create a new Account</Link>

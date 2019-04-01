@@ -201,7 +201,9 @@ class PlansListComp extends React.PureComponent {
 
   componentWillReceiveProps(props) {
     if (props.refreshPlan) {
-      this.props.getPlans();
+      setTimeout(() => {
+          this.props.getPlans();
+      }, 3000);
     }
     this.setState({
       rows: props.plan_list,
@@ -239,12 +241,14 @@ class PlansListComp extends React.PureComponent {
 
     return (
       <div>
-       {this.props.requesting && <CircularProgress size={44}  style={{ position: 'absolute', top: '50%', left: '50%' }}  />}
+        {this.props.requesting && <CircularProgress size={44} style={{ position: 'absolute', top: '50%', left: '50%' }} />}
         <Card>
           <CardHeader color="primary" style={{ textAlign: 'left', paddingTop: '30px' }}>
             <b>Plans</b>
           </CardHeader>
           <CardBody>
+            <div style={{ color: 'red', textAlign: 'center' }}>{this.props.message}</div>
+            <div style={{ color: 'green', textAlign: 'center' }}>{this.props.success_message}</div>
             <Grid
               rows={rows}
               columns={columns}

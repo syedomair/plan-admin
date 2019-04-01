@@ -8,6 +8,7 @@ import {
   LOGIN_FAILURE,
 } from 'constants/Login';
 import { UNDEFINED_ERROR, RESET_UNDEFINED_ERROR } from '../constants/Default';
+import { validateEmail } from '../Api/common.js';
 
 export function setEmail(value) {
   return (dispatch) => {
@@ -49,81 +50,110 @@ function parseJwt(token) {
   return JSON.parse(window.atob(base64));
 }
 
+
 export function onLogin(obj, redirect) {
   return (dispatch) => {
     dispatch({
       type: LOGIN_REQUEST,
       payload: {
         requesting: true,
+        message: '',
+        error_code: '',
       },
     });
     dispatch({
       type: RESET_UNDEFINED_ERROR,
     });
-    const apiKey = localStorage.getItem('api_key');
-    let config = {};
-    if (apiKey !== undefined) {
-      config = {
-        headers: {
-          Apikey: apiKey,
+
+    if (obj.password === '' && obj.email === '') {
+      dispatch({
+        type: LOGIN_FAILURE,
+        payload: {
+          requesting: false,
+          message: 'Invalid Email and Password',
+          error_code: '1093',
         },
-      };
+      });
+      return;
     }
 
-    API.post('login', obj, config)
-      .then((response) => {
-        if (response.data.result === 'success') {
-          if (response.data.data.token === undefined) {
-            localStorage.setItem(
-              'networks',
-              JSON.stringify(response.data.data),
-            );
+    if (obj.email === '' || validateEmail(obj.email)) {
+      dispatch({
+        type: LOGIN_FAILURE,
+        payload: {
+          requesting: false,
+          message: 'Invalid Email',
+          error_code: '1091',
+        },
+      });
+      return;
+    }
+    if (obj.password === '') {
+      dispatch({
+        type: LOGIN_FAILURE,
+        payload: {
+          requesting: false,
+          message: 'Invalid Password',
+          error_code: '1092',
+        },
+      });
+      return;
+    }
+
+    const config = {};
+    setTimeout(() => {
+      API.post('login', obj, config)
+        .then((response) => {
+          if (response.data.result === 'success') {
+            if (response.data.data.token === undefined) {
+              localStorage.setItem(
+                'networks',
+                JSON.stringify(response.data.data),
+              );
+              dispatch({
+                type: LOGIN_SUCCESS,
+                payload: {
+                  requesting: false,
+                  choose_network: true,
+                  redirect,
+                },
+              });
+            } else {
+              const tokenObj = parseJwt(response.data.data.token);
+              localStorage.setItem('token', response.data.data.token);
+              localStorage.setItem('user_id', tokenObj.current_user_id);
+              localStorage.setItem('email', tokenObj.email);
+              localStorage.setItem('first_name', tokenObj.first_name);
+              localStorage.setItem('last_name', tokenObj.last_name);
+              dispatch({
+                type: LOGIN_SUCCESS,
+                payload: {
+                  requesting: false,
+                  redirect,
+                },
+              });
+            }
+          }
+        })
+        .catch((error) => {
+          if (error.response === undefined) {
             dispatch({
-              type: LOGIN_SUCCESS,
+              type: UNDEFINED_ERROR,
               payload: {
-                requesting: false,
-                choose_network: true,
-                redirect,
+                error: error.request.status,
               },
             });
           } else {
-            const tokenObj = parseJwt(response.data.data.token);
-            localStorage.setItem('token', response.data.data.token);
-            localStorage.setItem('is_admin', tokenObj.is_admin);
-            localStorage.setItem('user_id', tokenObj.current_user_id);
-            localStorage.setItem('email', tokenObj.email);
-            localStorage.setItem('first_name', tokenObj.first_name);
-            localStorage.setItem('last_name', tokenObj.last_name);
             dispatch({
-              type: LOGIN_SUCCESS,
+              type: LOGIN_FAILURE,
               payload: {
                 requesting: false,
-                choose_network: false,
-                redirect,
+                message: error.response.data.data.message,
+                error_code: error.response.data.data.error_code,
               },
             });
           }
-        }
-      })
-      .catch((error) => {
-        if (error.response === undefined) {
-          dispatch({
-            type: UNDEFINED_ERROR,
-            payload: {
-              error: error.request.status,
-            },
-          });
-        } else {
-          dispatch({
-            type: LOGIN_FAILURE,
-            payload: {
-              requesting: false,
-              message: error.response.data.data.message,
-              error_code: error.response.data.data.error_code,
-              error,
-            },
-          });
-        }
-      });
+        });
+    }, 5000);
   };
 }

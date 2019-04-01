@@ -29,9 +29,10 @@ class Login extends React.Component {
           <LoginComp
             email={login.email}
             password={login.password}
-            requesting={login.requesting}
             showPassword={login.showPassword}
+            requesting={login.requesting}
             message={login.message}
+            error_code={login.error_code}
             setEmail={setEmail}
             setPassword={setPassword}
             onShowPassword={onShowPassword}

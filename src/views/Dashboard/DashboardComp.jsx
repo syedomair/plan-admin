@@ -235,7 +235,7 @@ updated now
             </Card>
           </GridItem>
         </GridContainer>
-       {this.props.requesting && <CircularProgress size={44}  style={{ position: 'absolute', top: '50%', left: '50%' }}  />}
+        {this.props.requesting && <CircularProgress size={44} style={{ position: 'absolute', top: '50%', left: '50%' }} />}
       </div>
     );
   }

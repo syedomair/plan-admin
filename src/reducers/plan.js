@@ -16,6 +16,8 @@ import {
 const initialState = {
   requesting: false,
   message: '',
+  success_message: '',
+  error_code: '',
   plan_list: '',
   refreshPlan: false,
 };
@@ -27,6 +29,8 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         refreshPlan: false,
+        message: '',
+        success_message: '',
       };
 
     case GET_ALL_PLAN_SUCCESS:
@@ -42,11 +46,14 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        error_code: action.payload.error_code,
       };
     case POST_PLAN_REQUEST:
       return {
         ...state,
         requesting: action.payload.requesting,
+        message: '',
+        success_message: '',
       };
 
     case POST_PLAN_SUCCESS:
@@ -54,6 +61,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        success_message: "New Plan Created Successfully",
         refreshPlan: true,
       };
 
@@ -62,12 +70,15 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        error_code: action.payload.error_code,
       };
 
     case PATCH_PLAN_REQUEST:
       return {
         ...state,
         requesting: action.payload.requesting,
+        message: '',
+        success_message: '',
       };
 
     case PATCH_PLAN_SUCCESS:
@@ -75,6 +86,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        success_message: "Plan Updated Successfully.",
         refreshPlan: true,
       };
 
@@ -83,11 +95,14 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        error_code: action.payload.error_code,
       };
     case DELETE_PLAN_REQUEST:
       return {
         ...state,
         requesting: action.payload.requesting,
+        message: '',
+        success_message: '',
       };
 
     case DELETE_PLAN_SUCCESS:
@@ -95,6 +110,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        success_message: "Successfully deleted record.",
         refreshPlan: true,
       };
 
@@ -103,6 +119,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
+        error_code: action.payload.error_code,
       };
 
     default:
