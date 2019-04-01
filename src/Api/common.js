@@ -42,6 +42,13 @@ export function commonBackendCall(REQUEST, SUCCESS, FAILURE, requestedAPI) {
           dispatch({
             type: AUTHORIZATION_REQUIRED,
           });
+        } else if (error.request.status === 404) {
+          dispatch({
+            type: UNDEFINED_ERROR,
+            payload: {
+              error: error.request.status,
+            },
+          });
         } else {
           dispatch({
             type: FAILURE,
