@@ -85,6 +85,7 @@ class DashboardComp extends React.Component {
 
     for (let i = m; i >= -11; i--) {
       arrangedMonths.push(months[i]);
+      // eslint-disable-next-line
       const monthData = this.props.user_reg_data.filter(data => (parseInt(data.month, 10) - 1) === i && parseInt(data.year, 10) === y);
       const count = monthData.length > 0 ? monthData[0].count : 0;
       if (count > maxMonthlyNum) {

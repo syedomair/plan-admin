@@ -13,6 +13,10 @@ import {
   GET_USER_REG_DATA_FAILURE,
 } from '../constants/Dashboard';
 
+import {
+  UNDEFINED_ERROR,
+} from '../constants/Default';
+
 const initialState = {
   requesting: false,
   message: '',
@@ -24,6 +28,12 @@ const initialState = {
 
 export default function dashboard(state = initialState, action) {
   switch (action.type) {
+    case UNDEFINED_ERROR:
+      return {
+        ...state,
+        requesting: false,
+      };
+
     case GET_USER_30DAY_REQUEST:
       return {
         ...state,

@@ -8,6 +8,9 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
 } from '../constants/Register';
+import {
+  UNDEFINED_ERROR,
+} from '../constants/Default';
 
 const initialState = {
   network: '',
@@ -25,6 +28,11 @@ const initialState = {
 
 export default function register(state = initialState, action) {
   switch (action.type) {
+    case UNDEFINED_ERROR:
+      return {
+        ...state,
+        requesting: false,
+      };
     case SET_REGISTER_EMAIL:
       return { ...state, email: action.payload.value };
 

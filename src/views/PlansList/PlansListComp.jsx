@@ -202,7 +202,7 @@ class PlansListComp extends React.PureComponent {
   componentWillReceiveProps(props) {
     if (props.refreshPlan) {
       setTimeout(() => {
-          this.props.getPlans();
+        this.props.getPlans();
       }, 3000);
     }
     this.setState({

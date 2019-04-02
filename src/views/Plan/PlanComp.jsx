@@ -35,7 +35,7 @@ class PlanComp extends React.Component {
   componentWillReceiveProps(props) {
     if (props.refreshPlanMsg) {
       setTimeout(() => {
-          this.props.getPlanMsg(props.plan_id);
+        this.props.getPlanMsg(props.plan_id);
       }, 3000);
     }
   }
@@ -99,7 +99,10 @@ class PlanComp extends React.Component {
           <CardHeader color="primary">
             <div style={{ float: 'left' }}>
               <b>
-Plan Messages Email Template for:{" "} {this.props.plan_title}
+Plan Messages Email Template for:
+                {' '}
+                {' '}
+                {this.props.plan_title}
               </b>
             </div>
           </CardHeader>

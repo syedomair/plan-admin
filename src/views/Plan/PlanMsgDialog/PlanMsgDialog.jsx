@@ -42,18 +42,18 @@ export default class PlanMsgDialog extends React.Component {
   };
 
   handleSave = () => {
-    if(this.state.message === '' && this.state.action === ''){
-        this.setState({ error_message: 'Message Template and Action can not be blank.' });
-        return
-    } 
-    if(this.state.message === '' ){
-        this.setState({ error_message: 'Message Template can not be blank.' });
-        return
-    } 
-    if(this.state.action === ''){
-        this.setState({ error_message: 'Action can not be blank.' });
-        return
-    } 
+    if (this.state.message === '' && this.state.action === '') {
+      this.setState({ error_message: 'Message Template and Action can not be blank.' });
+      return;
+    }
+    if (this.state.message === '') {
+      this.setState({ error_message: 'Message Template can not be blank.' });
+      return;
+    }
+    if (this.state.action === '') {
+      this.setState({ error_message: 'Action can not be blank.' });
+      return;
+    }
     if (this.state.dialog_state === 'update') {
       this.props.updatePlanMsg(this.props.plan_msg_id, { message: this.state.message, action: this.state.action });
     } else if (this.state.dialog_state === 'delete') {

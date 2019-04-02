@@ -6,6 +6,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
 } from '../constants/Login';
+import {
+  UNDEFINED_ERROR,
+} from '../constants/Default';
 
 const initialState = {
   username: '',
@@ -18,6 +21,11 @@ const initialState = {
 
 export default function login(state = initialState, action) {
   switch (action.type) {
+    case UNDEFINED_ERROR:
+      return {
+        ...state,
+        requesting: false,
+      };
     case SET_EMAIL:
       return {
         ...state,

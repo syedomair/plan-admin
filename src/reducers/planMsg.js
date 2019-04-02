@@ -15,6 +15,9 @@ import {
   DELETE_PLAN_MSG_SUCCESS,
   DELETE_PLAN_MSG_FAILURE,
 } from '../constants/PlanMessage';
+import {
+  UNDEFINED_ERROR,
+} from '../constants/Default';
 
 const initialState = {
   requesting: false,
@@ -28,6 +31,11 @@ const initialState = {
 
 export default function plan(state = initialState, action) {
   switch (action.type) {
+    case UNDEFINED_ERROR:
+      return {
+        ...state,
+        requesting: false,
+      };
     case GET_PLAN_REQUEST:
       return {
         ...state,
@@ -84,7 +92,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
-        success_message: "New Plan Message Created Successfully",
+        success_message: 'New Plan Message Created Successfully',
         refreshPlanMsg: true,
       };
 
@@ -107,7 +115,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
-        success_message: "Plan Message Updated Successfully",
+        success_message: 'Plan Message Updated Successfully',
         refreshPlanMsg: true,
       };
 
@@ -129,7 +137,7 @@ export default function plan(state = initialState, action) {
         ...state,
         requesting: action.payload.requesting,
         message: action.payload.message,
-        success_message: "Plan Message Deleted Successfully",
+        success_message: 'Plan Message Deleted Successfully',
         refreshPlanMsg: true,
       };
 

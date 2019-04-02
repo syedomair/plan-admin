@@ -3,6 +3,9 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
 } from '../constants/User';
+import {
+  UNDEFINED_ERROR,
+} from '../constants/Default';
 
 
 const initialState = {
@@ -17,6 +20,11 @@ const initialState = {
 
 export default function user(state = initialState, action) {
   switch (action.type) {
+    case UNDEFINED_ERROR:
+      return {
+        ...state,
+        requesting: false,
+      };
     case GET_USER_REQUEST:
       return {
         ...state,

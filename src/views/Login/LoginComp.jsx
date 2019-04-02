@@ -47,7 +47,7 @@ class LoginComp extends Component {
     if (props.error_code === '1092') {
       this.setState({ emailError: false, passwordError: true });
     }
-    if (props.error_code === '1093' ||  props.error_code === '1115') {
+    if (props.error_code === '1093' || props.error_code === '1115') {
       this.setState({ emailError: false, passwordError: true });
     }
     if (props.error_code === '1114') {

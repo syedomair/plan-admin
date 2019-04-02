@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as dashboardActions from 'actions/DashboardActions';
+import UndefinedErrorSnackbar from 'components/Snackbar/UndefinedErrorSnackbar';
 import DashboardComp from './Dashboard/DashboardComp';
 
 class Dashboard extends Component {
   render() {
-    const { dashboard } = this.props;
+    const { dashboard, defaultStates } = this.props;
     const {
       getTotalUsers,
       getTotalPlans,
@@ -15,6 +16,7 @@ class Dashboard extends Component {
     } = this.props.dashboardActions;
     return (
       <div>
+        {defaultStates.unDefinedError ? <UndefinedErrorSnackbar error_code={defaultStates.error} /> : ''}
         <DashboardComp
           getTotalUsersLast30Days={getTotalUsersLast30Days}
           getTotalUsers={getTotalUsers}
@@ -34,6 +36,7 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   return {
     dashboard: state.dashboard,
+    defaultStates: state.defaultStates,
   };
 }
 

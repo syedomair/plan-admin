@@ -17,7 +17,8 @@ class Register extends React.Component {
     const { classes } = this.props;
     const { register, defaultStates } = this.props;
     const {
-      setPassword, setFirstName, setLastName, setPasswordConfirm, setEmail,  onRegister } = this.props.registerActions;
+      setPassword, setFirstName, setLastName, setPasswordConfirm, setEmail, onRegister,
+    } = this.props.registerActions;
 
     if (localStorage.getItem('token')) {
       return <Redirect to="/dashboard" />;

@@ -101,57 +101,64 @@ export function onLogin(obj, redirect) {
     }
 
     const config = {};
-      API.post('login', obj, config)
-        .then((response) => {
-          if (response.data.result === 'success') {
-            if (response.data.data.token === undefined) {
-              localStorage.setItem(
-                'networks',
-                JSON.stringify(response.data.data),
-              );
-              dispatch({
-                type: LOGIN_SUCCESS,
-                payload: {
-                  requesting: false,
-                  choose_network: true,
-                  redirect,
-                },
-              });
-            } else {
-              const tokenObj = parseJwt(response.data.data.token);
-              localStorage.setItem('token', response.data.data.token);
-              localStorage.setItem('user_id', tokenObj.current_user_id);
-              localStorage.setItem('email', tokenObj.email);
-              localStorage.setItem('first_name', tokenObj.first_name);
-              localStorage.setItem('last_name', tokenObj.last_name);
-              dispatch({
-                type: LOGIN_SUCCESS,
-                payload: {
-                  requesting: false,
-                  redirect,
-                },
-              });
-            }
-          }
-        })
-        .catch((error) => {
-          if (error.response === undefined) {
+    API.post('login', obj, config)
+      .then((response) => {
+        if (response.data.result === 'success') {
+          if (response.data.data.token === undefined) {
+            localStorage.setItem(
+              'networks',
+              JSON.stringify(response.data.data),
+            );
             dispatch({
-              type: UNDEFINED_ERROR,
+              type: LOGIN_SUCCESS,
               payload: {
-                error: error.request.status,
+                requesting: false,
+                choose_network: true,
+                redirect,
               },
             });
           } else {
+            const tokenObj = parseJwt(response.data.data.token);
+            localStorage.setItem('token', response.data.data.token);
+            localStorage.setItem('user_id', tokenObj.current_user_id);
+            localStorage.setItem('email', tokenObj.email);
+            localStorage.setItem('first_name', tokenObj.first_name);
+            localStorage.setItem('last_name', tokenObj.last_name);
             dispatch({
-              type: LOGIN_FAILURE,
+              type: LOGIN_SUCCESS,
               payload: {
                 requesting: false,
-                message: error.response.data.data.message,
-                error_code: error.response.data.data.error_code,
+                redirect,
               },
             });
           }
-        });
+        }
+      })
+      .catch((error) => {
+        if (error.response === undefined) {
+          dispatch({
+            type: UNDEFINED_ERROR,
+            payload: {
+              error: error.request.status,
+            },
+          });
+        } else if (error.request.status !== 400) {
+          dispatch({
+            type: UNDEFINED_ERROR,
+            payload: {
+              error: error.request.status,
+            },
+          });
+        } else {
+          dispatch({
+            type: LOGIN_FAILURE,
+            payload: {
+              requesting: false,
+              message: error.response.data.data.message,
+              error_code: error.response.data.data.error_code,
+            },
+          });
+        }
+      });
   };
 }
