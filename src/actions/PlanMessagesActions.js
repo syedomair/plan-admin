@@ -32,7 +32,7 @@ export function getPlanMsg(planId) {
     GET_PLAN_MSG_REQUEST,
     GET_PLAN_MSG_SUCCESS,
     GET_PLAN_MSG_FAILURE,
-    API.get(`plan-messages/${planId}`, getConfig()),
+    API.get(`plan-messages/plan/${planId}`, getConfig()),
   );
 }
 export function createPlanMsg(planId, obj) {
