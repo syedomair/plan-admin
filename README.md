@@ -6,12 +6,12 @@ It is an example application, which has two parts
 Test user email/password  admin@gmail.com/123456
 
 
-## Plan Admin Dashbord Table of Contents
+## Plan Admin Dashboard Table of Contents
 * [Dashboard](#dashboard)
 * [User List](#user-list)
 * [Plan List](#plan-list)
-* [Plan detail](#plan-detail)
-* [Plan dialog](#plan-dialog)
+* [Plan Detail](#plan-detail)
+* [Plan Dialog](#plan-dialog)
 * [Login](#login)
 * [Register](#register)
 * [File Structure](#file-structure)
