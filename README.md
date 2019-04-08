@@ -2,6 +2,7 @@
 It is an example application, which has two parts 
  * [Plan API](https://plans-api.herokuapp.com): A backend API application developed with Golang. 
  * [Plan Admin Dashboard](https://plans-admin.herokuapp.com): A Frontend application developed with ReactJs and Redux.
+Test user email/password  admin@gmail.com/123456
 
 
 ## Plan Admin Dashbord Table of Contents
