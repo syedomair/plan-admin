@@ -41,7 +41,7 @@ export default class PlanMsgDialog extends React.Component {
     this.setState({ open: true });
   };
 
-  handleSave = () => {
+   handleSave = async () => {
     if (this.state.message === '' && this.state.action === '') {
       this.setState({ error_message: 'Message Template and Action can not be blank.' });
       return;
@@ -55,11 +55,11 @@ export default class PlanMsgDialog extends React.Component {
       return;
     }
     if (this.state.dialog_state === 'update') {
-      this.props.updatePlanMsg(this.props.plan_msg_id, { message: this.state.message, action: this.state.action });
+      await this.props.updatePlanMsg(this.props.plan_msg_id, { message: this.state.message, action: this.state.action });
     } else if (this.state.dialog_state === 'delete') {
-      this.props.deletePlanMsg(this.props.plan_msg_id);
+      await this.props.deletePlanMsg(this.props.plan_msg_id);
     } else if (this.state.dialog_state === 'add') {
-      this.props.createPlanMsg(this.props.plan_id, { message: this.state.message, action: this.state.action });
+      await this.props.createPlanMsg(this.props.plan_id, { message: this.state.message, action: this.state.action });
     }
 
     if (this.props.requesting) {
