@@ -39,7 +39,7 @@ function Header({ ...props }) {
           {/* Here we create navbar brand, based on route name */}
           <Button color="transparent" href="#" className={classes.titlePublic}>
             {/* makeBrand() */}
-            ReactJs Demo
+            Plan Admin 
           </Button>
         </div>
         {/*
