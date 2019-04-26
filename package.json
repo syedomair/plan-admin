@@ -55,9 +55,9 @@
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start1": "PORT=3006 NODE_PATH=./src react-scripts start",
+    "start1": "PORT=3006 NODE_PATH=./src REACT_APP_API_SERVER=http://localhost:8180/ react-scripts start",
     "start-js": "react-scripts start",
-    "start": "NODE_PATH=./src react-scripts start",
+    "start": "NODE_PATH=./src REACT_APP_API_SERVER=https://plans-api.herokuapp.com/ react-scripts start",
     "build": "npm run build-css && NODE_PATH=./src react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

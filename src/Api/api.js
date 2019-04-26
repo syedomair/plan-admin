@@ -2,11 +2,12 @@ import axios from 'axios';
 
 
 export default axios.create({
-  //baseURL: 'http://localhost:8180/',
-  baseURL: `https://plans-api.herokuapp.com/`,
+  baseURL: process.env.REACT_APP_API_SERVER,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     // "Token": localStorage.getItem("token")
   },
-});
+}
+
+);
